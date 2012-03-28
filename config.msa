@@ -1,0 +1,39 @@
+*:/multiinv addgroup $world $group = >>>
+    if(!has_permission('thezomg.multiinv.manage'),
+        die(concat(color(red), 'You do not have permission.'))
+    )
+    
+    _multiinv_add_group($world, $group)
+    msg($world 'added to' $group)
+<<<
+
+*:/multiinv remgroup $world = >>>
+    if(!has_permission('thezomg.multiinv.manage'),
+        die(concat(color(red), 'You do not have permission.'))
+    )
+    
+    assign(@group, _multiinv_get_group($world))
+    
+    if(@group,
+        _multiinv_remove_group($world)
+        msg($world 'removed from' @group)
+    , # else
+        msg($world 'is not in any group')
+    )
+<<<
+
+*:/multiinv groupof $world = >>>
+    assign(@group, _multiinv_get_group($world))
+    
+    if(@group,
+        msg($world 'is in group' @group)
+    , # else
+        msg($world 'is not in any group')
+    )
+<<<
+
+*:/multiinv [$] = >>>
+    msg('/multiinv addgroup <world> <group>')
+    msg('/multiinv remgroup <world>')
+    msg('/multiinv groupof <world>')
+<<<
